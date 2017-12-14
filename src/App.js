@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from 'redux'; // take the middleware and
 import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk'; // is a middleware so we need to apply helper from redux
 import reducers from './reducers';
-import LoginForm from './components/LoginForm';
+import Router from './Router';
 
 class App extends Component {
     componentWillMount() {
@@ -25,7 +25,7 @@ class App extends Component {
 
         return (
             <Provider store={store}>
-                <LoginForm/>
+                <Router />
             </Provider>
         );
     }
