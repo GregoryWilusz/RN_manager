@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { ListView, View, Text } from 'react-native';
+import { ListView } from 'react-native';
 import { employeesFetch } from '../actions/';
+import ListItem from './ListItem';
 
 class EmployeeList extends Component {
     // This component will be unmounted and gone  when the user change the screen. When he back here, it's going to render a new instance
@@ -27,23 +28,27 @@ class EmployeeList extends Component {
             rowHasChanged: (r1, r2) => r1 !== r2
         });
 
-        this.dataStore = ds.cloneWithRows(employees); // creating data source at this point in time, for each time we get a new list of users
+        this.dataSource = ds.cloneWithRows(employees); // creating data source at this point in time, for each time we get a new list of users
         // we will recreate our data source. cloneWithRows expects to be passed an array of object to work with! That is why we used lodash.
         // then we try to make access to this.props.employees, but it will be empty by the time we get to this line of code, because our
         // actual request to fetch a list of employees is probably not going to complete just yet.
+    }
+
+    // it gets called with an 'employee' because it's representing a single row and passed out
+    renderRow(employee) {
+        return <ListItem employee={employee} /> // and we're going to pass that down to list item as a prop called employee
     }
 
     render() {
         console.log(this.props);
 
         return (
-            <View>
-                <Text>Employee List</Text>
-                <Text>Employee List</Text>
-                <Text>Employee List</Text>
-                <Text>Employee List</Text>
-                <Text>Employee List</Text>
-            </View>
+            <ListView
+                enableEmptySections
+                dataSource={this.dataSource}
+                renderRow={this.renderRow} // is responsible for rendering a singular row of our list.
+
+            />
         );
     }
 }
@@ -58,6 +63,7 @@ const mapStateToProps = state => {
     // NAME, SHIFT, and PHONE properties. Then we return a new object, push in all the values (val) from the user model and we also throw
     // the ID (uid) on top. THEN we collect all this object and put them into array which is then assigned to employees. The last step,
     // the MAP putting them into an array automatically.
+    console.log(state.employees);
     const employees = _.map(state.employees, (val, uid) => {
         return { ...val, uid }; // output for example: { shift: 'Monday', name: 'Sylvia', id: '...' }
     });
