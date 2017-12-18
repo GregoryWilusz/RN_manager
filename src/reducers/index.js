@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 import AuthReducer from './AuthReducer';
+import EmployeeFormReducer from './EmployeeFormReducer';
 
 export default combineReducers({
     // banana: () => []    // dummy default reducer which always returns an empty array
-    auth: AuthReducer
+    auth: AuthReducer,
+    employeeForm: EmployeeFormReducer // what do we call a piece of state
 });
