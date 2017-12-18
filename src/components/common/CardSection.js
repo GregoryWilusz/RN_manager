@@ -3,7 +3,9 @@ import {View} from 'react-native';
 
 const CardSection = (props) => {
   return (
-      <View style={styles.containerStyle}>
+      // trick in RN, style prop below (that gets passed to any primitive element lik View or Text) can take an array of styles!
+      // then the style most to the right will overwrite any style on the left!!!
+      <View style={[styles.containerStyle, props.style]}>
           {props.children}
       </View>
   );

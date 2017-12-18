@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Picker } from 'react-native';
+import { Picker, Text } from 'react-native';
 // Getting access to an action creator in component = import: connect helper and action creator we want to call.
 import { connect } from 'react-redux';
 import { employeeUpdate } from '../actions';
@@ -29,9 +29,10 @@ class EmployeeCreate extends Component {
                     />
                 </CardSection>
 
-                <CardSection>
+                <CardSection style={{ flexDirection: 'column' }}>
+                    <Text style={styles.pickerLabelStyle}>Shift</Text>
                     <Picker
-                        style={{ flex: 1 }}
+                        // style={{ flex: 1 }}
                         selectedValue={this.props.shift}
                         onValueChange={value => this.props.employeeUpdate({ prop: 'shift', value })}
                     >
@@ -54,6 +55,13 @@ class EmployeeCreate extends Component {
         );
     }
 }
+
+const styles = {
+    pickerLabelStyle: {
+        fontSize: 18,
+        paddingLeft: 20
+    }
+};
 
 // making sure that we get attriburtes that are being created by the Form itself => mapStateToProps
 const mapStateToProps = (state) => {
