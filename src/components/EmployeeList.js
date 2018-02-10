@@ -40,8 +40,6 @@ class EmployeeList extends Component {
     }
 
     render() {
-        console.log(this.props);
-
         return (
             <ListView
                 enableEmptySections
@@ -63,7 +61,6 @@ const mapStateToProps = state => {
     // NAME, SHIFT, and PHONE properties. Then we return a new object, push in all the values (val) from the user model and we also throw
     // the ID (uid) on top. THEN we collect all this object and put them into array which is then assigned to employees. The last step,
     // the MAP putting them into an array automatically.
-    console.log(state.employees);
     const employees = _.map(state.employees, (val, uid) => {
         return { ...val, uid }; // output for example: { shift: 'Monday', name: 'Sylvia', phone: ..., uid: '...' }
     });

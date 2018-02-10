@@ -1,6 +1,7 @@
 import {
     EMPLOYEE_UPDATE,
-    EMPLOYEE_CREATE
+    EMPLOYEE_CREATE,
+    EMPLOYEE_SAVE_SUCCESS
 } from "../actions/types";
 
 //reducer's state
@@ -23,6 +24,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, [action.payload.prop]: action.payload.value  }; // it's not an array!
         case EMPLOYEE_CREATE:
             return INITIAL_STATE; // Employee was successfully created so we want to clear all states.
+        case EMPLOYEE_SAVE_SUCCESS:
+            return INITIAL_STATE;
         default:
             return state;
     }
