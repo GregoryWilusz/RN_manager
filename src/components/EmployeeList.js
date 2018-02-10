@@ -65,7 +65,7 @@ const mapStateToProps = state => {
     // the MAP putting them into an array automatically.
     console.log(state.employees);
     const employees = _.map(state.employees, (val, uid) => {
-        return { ...val, uid }; // output for example: { shift: 'Monday', name: 'Sylvia', id: '...' }
+        return { ...val, uid }; // output for example: { shift: 'Monday', name: 'Sylvia', phone: ..., uid: '...' }
     });
 
     return {employees}; // we get an array
