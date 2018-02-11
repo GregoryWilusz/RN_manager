@@ -22,7 +22,7 @@ class EmployeeCreate extends Component {
                 {/*{...this.props} says: take all of the different props that employeeCreate has been passed and forward them on the Employee form as well*/}
                 {/*onButtonPress helper method is a callback, so we need to bind the context*/}
                 <CardSection>
-                    <Button whenPressed={this.onButtonPress.bind(this)}>
+                    <Button onPress={this.onButtonPress.bind(this)}>
                         Create
                     </Button>
                 </CardSection>

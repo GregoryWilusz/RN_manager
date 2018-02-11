@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Communications from 'react-native-communications';
 import EmployeeForm from './EmployeeForm';
-import { employeeUpdate, employeeSave } from '../actions';
+import { employeeUpdate, employeeSave, employeeDelete } from '../actions';
 import { Card, CardSection, Button, Confirm } from './common';
 
 class EmployeeEdit extends Component {
-    state= { showModal: false };
+    state = { showModal: false };
 
     componentWillMount() {
         _.each(this.props.employee, (value, prop) => {
@@ -27,31 +27,43 @@ class EmployeeEdit extends Component {
         Communications.text(phone, `Your upcoming shift is on ${shift}`);
     }
 
+    onAccept() {
+        const { uid } = this.props.employee; // getting access to uid
+
+        this.props.employeeDelete({ uid }); // because employee action creator receives an object of { uid }
+    }
+
+    onDecline() {
+        this.setState({ showModal: false });
+    }
+
     render() {
         return(
             <Card>
                 <EmployeeForm />
 
                 <CardSection>
-                    <Button whenPressed={this.onButtonPress.bind(this)}>
+                    <Button onPress={this.onButtonPress.bind(this)}>
                         Save changes
                     </Button>
                 </CardSection>
 
                 <CardSection>
-                    <Button whenPressed={this.onTextPress.bind(this)}>
+                    <Button onPress={this.onTextPress.bind(this)}>
                         Text Schedule
                     </Button>
                 </CardSection>
 
                 <CardSection>
-                    <Button whenPressed={() => this.setState({ showModal: !this.state.showModal })}>
+                    <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>
                         Fire employee
                     </Button>
                 </CardSection>
 
                 <Confirm
                     visible={this.state.showModal}
+                    onAccept={this.onAccept.bind(this)}
+                    onDecline={this.onDecline.bind(this)}
                 >
                     Are you sure you want to delete this?
                 </Confirm>
@@ -67,4 +79,6 @@ const mapStateToProps = (state) => {
     return { name, phone, shift };
 };
 
-export default connect(mapStateToProps, { employeeUpdate, employeeSave })(EmployeeEdit);
+export default connect(mapStateToProps, {
+    employeeUpdate, employeeSave, employeeDelete
+})(EmployeeEdit);
