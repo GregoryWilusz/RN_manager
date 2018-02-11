@@ -4,3 +4,4 @@ export * from './CardSection';  // e.g. export { Button: Button}; --> it's an ob
 export * from './Header';       // the same is: export { Button };
 export * from './Input';
 export * from './Spinner';
+export * from './Confirm';
